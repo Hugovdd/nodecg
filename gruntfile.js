@@ -45,7 +45,6 @@ module.exports = function(grunt) {
                     transform: [
                         ['aliasify', {
                             aliases: {
-                                './logger': './lib/browser/logger',
                                 './replicant': './lib/browser/replicant',
                                 './config': './lib/browser/config'
                             },
@@ -75,7 +74,6 @@ module.exports = function(grunt) {
                     transform: [
                         ['aliasify', {
                             aliases: {
-                                './logger': './lib/browser/logger',
                                 './replicant': './lib/browser/replicant',
                                 './config': './lib/browser/config'
                             },
