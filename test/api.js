@@ -112,8 +112,8 @@ describe('client-side api', function() {
 
         it('should exist and have length', function(done) {
             e.browser.client
-                .execute(function() {
-                    return window.dashboardApi.config;
+                .executeAsync(function(execDone) {
+                    window.dashboardApi.getConfig(execDone);
                 })
                 .then(function(ret) {
                     expect(ret.value).to.not.be.empty();
@@ -124,8 +124,8 @@ describe('client-side api', function() {
 
         it('shouldn\'t reveal sensitive information', function(done) {
             e.browser.client
-                .execute(function() {
-                    return window.dashboardApi.config;
+                .executeAsync(function(execDone) {
+                    window.dashboardApi.getConfig(execDone);
                 })
                 .then(function(ret) {
                     expect(ret.value.login).to.not.have.property('sessionSecret');
@@ -136,8 +136,10 @@ describe('client-side api', function() {
 
         it('shouldn\'t be writable', function(done) {
             e.browser.client
-                .execute(function() {
-                    return Object.isFrozen(window.dashboardApi.config);
+                .executeAsync(function(execDone) {
+                    window.dashboardApi.getConfig(function(config) {
+                        execDone(Object.isFrozen(config));
+                    });
                 })
                 .then(function(ret) {
                     expect(ret.value).to.be.true;
